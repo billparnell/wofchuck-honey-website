@@ -1,0 +1,275 @@
+/* Wofchuck Honey Co. — one light look on purpose: the jar label's teal ink on
+   pale sea-glass paper, with honey as the only warm colour.
+   Layout: one centred reading column (--col) for text, a wider one (--wide)
+   for the honey and order grids; colour bands run full width. */
+:root {
+  --paper: #f2f6f2;        /* page ground: faint sea-glass white */
+  --mist: #e1edea;         /* alternate band */
+  --card: #fbfdfb;         /* honey and order cards */
+  --ink: #1b5a61;          /* label ink: logo, headings, buttons */
+  --ink-deep: #123f45;     /* footer band, button hover */
+  --text: #213a3d;         /* running text */
+  --muted: #4b6467;        /* secondary text (5.9:1 on --paper) */
+  --line: #c5d8d4;         /* card borders, dividers */
+  --honey: #d39a2c;        /* the one warm accent */
+  --on-ink: #f2f6f2;       /* text on --ink / --ink-deep */
+
+  /* one jar colour per honey, darkest to lightest */
+  --jar-wildflower: #a8661a;
+  --jar-knapweed: #cf951f;
+  --jar-desert: #dcaa45;
+  --jar-sage: #e9cf86;
+  --jar-clover: #f0dc9c;
+
+  --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
+  --font-body: 'Figtree', 'Helvetica Neue', Arial, sans-serif;
+
+  --col: 680px;
+  --wide: 1040px;
+  --tap: 56px;
+  --radius: 14px;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--ink); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--honey); outline-offset: 3px; border-radius: 4px; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.2;
+  text-wrap: balance;
+  margin: 0;
+}
+h2 { font-size: clamp(1.75rem, 1.4rem + 1.6vw, 2.4rem); }
+h3 { font-size: 1.3rem; }
+p { margin: 0; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* small caps label, after "PLEASE THANK THE BEES" on the jar */
+.eyebrow {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── bands and columns ── */
+.band {
+  padding-block: clamp(56px, 8vw, 96px);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.band--mist { background: var(--mist); }
+.col, .wide { width: 100%; margin-inline: auto; }
+.col { max-width: var(--col); }
+.wide { max-width: var(--wide); }
+.stack { display: flex; flex-direction: column; gap: 20px; }
+.section-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+.section-head p { color: var(--muted); max-width: 60ch; }
+
+/* wavy edge between bands: an organic seam instead of a hard line */
+.wave { display: block; width: 100%; height: 36px; }
+.wave path { fill: var(--mist); }
+.wave--down { transform: scaleY(-1); }
+.wave--deep path { fill: var(--ink-deep); }
+
+/* ── top bar ── */
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper);
+}
+.topbar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+  padding-left: max(8px, env(safe-area-inset-left, 0px));
+  padding-right: max(8px, env(safe-area-inset-right, 0px));
+}
+.topbar nav {
+  max-width: var(--wide);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+.topbar .home { display: flex; align-items: center; min-height: var(--tap); padding-inline: 8px; }
+.topbar .home img { width: 40px; height: 40px; }
+.topbar ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex: 1; justify-content: flex-end;
+}
+.topbar ul a {
+  display: flex; align-items: center; justify-content: center;
+  min-height: var(--tap);
+  padding-inline: 9px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink);
+}
+.topbar ul a:hover { color: var(--ink-deep); text-decoration: underline; }
+
+/* ── hero ── */
+.hero {
+  text-align: center;
+  padding-block: 40px 24px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  background: radial-gradient(ellipse 60% 55% at 50% 38%, var(--mist) 0%, transparent 72%);
+}
+.hero .emblem { width: min(100%, 440px); margin: 0 auto 28px; }
+.hero .lede {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 1.2rem + 1.4vw, 2rem);
+  color: var(--ink);
+  line-height: 1.3;
+  text-wrap: balance;
+  max-width: 22ch;
+  margin-inline: auto;
+}
+.hero .sub { color: var(--muted); margin: 14px auto 0; max-width: 34ch; }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
+
+/* ── buttons: one family ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: var(--tap);
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: 2px solid var(--ink);
+  font: 700 1.05rem/1.2 var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s, color .15s;
+}
+.btn--solid { background: var(--ink); color: var(--on-ink); }
+.btn--solid:hover { background: var(--ink-deep); border-color: var(--ink-deep); }
+.btn--line { background: transparent; color: var(--ink); }
+.btn--line:hover { background: var(--mist); }
+
+/* ── story ── */
+.story p + p { margin-top: 0; }
+.pullquote {
+  margin: 8px 0;
+  padding-left: 22px;
+  border-left: 3px solid var(--honey);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.people { display: grid; gap: 16px; grid-template-columns: 1fr; margin-top: 12px; }
+@media (min-width: 640px) { .people { grid-template-columns: 1fr 1fr; } }
+.person h3 { margin-bottom: 4px; }
+.person p { color: var(--text); }
+
+/* ── cards: one family for honey and order ── */
+.cards { display: grid; gap: 18px; grid-template-columns: 1fr; }
+@media (min-width: 700px) { .cards { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .cards--three { grid-template-columns: repeat(3, 1fr); } }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 10px;
+  min-width: 0;
+}
+.card-top { display: flex; align-items: center; gap: 14px; }
+.card-top h3 { flex: 1; min-width: 0; }
+.card p { color: var(--text); }
+
+/* honey drop in the jar colour of each variety */
+.drop { width: 34px; height: 44px; flex: none; }
+.drop path { stroke: var(--ink); stroke-width: 1.6; }
+.drop--wildflower path { fill: var(--jar-wildflower); }
+.drop--knapweed path { fill: var(--jar-knapweed); }
+.drop--desert path { fill: var(--jar-desert); }
+.drop--sage path { fill: var(--jar-sage); }
+.drop--clover path { fill: var(--jar-clover); }
+
+/* the one pill: where a honey comes from */
+.pill {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--mist);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.pill--ours { background: var(--honey); color: var(--ink-deep); }
+
+/* line icons on the order cards */
+.icon { width: 40px; height: 40px; flex: none; color: var(--ink); }
+.icon * { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+.note { color: var(--muted); margin-top: 28px; text-align: center; }
+
+/* ── pairings ── */
+.pairings { display: grid; gap: 40px; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .pairings { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
+.pairing h3 { display: flex; align-items: center; gap: 12px; }
+.pairing h3 .drop { width: 26px; height: 34px; }
+.pairing .from { color: var(--muted); font-size: 0.95rem; margin: 4px 0 14px; }
+.pairing ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.pairing li { padding-block: 12px; border-top: 1px solid var(--line); }
+.pairing li strong { display: block; color: var(--ink); font-weight: 700; }
+.pairing li span { color: var(--text); }
+
+/* ── contact ── */
+.contact { text-align: center; }
+.contact .section-head { align-items: center; margin-bottom: 24px; }
+.contact .section-head p { margin-inline: auto; }
+.email-row { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.email-row .actions { margin-top: 0; }
+.email-address {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1rem + 1.4vw, 1.6rem);
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+.copied { color: var(--muted); min-height: 1.6em; }
+
+/* ── footer ── */
+.footer {
+  background: var(--ink-deep);
+  color: var(--on-ink);
+  text-align: center;
+  padding-block: 40px calc(40px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.footer .thanks { font-family: var(--font-display); font-size: 1.4rem; }
+.footer small { display: block; margin-top: 10px; font-size: 0.95rem; opacity: .85; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: none; }
+}
