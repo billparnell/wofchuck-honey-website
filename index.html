@@ -10,13 +10,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Young+Serif&display=swap">
-<link rel="stylesheet" href="css/site.css?v=3">
+<link rel="stylesheet" href="css/site.css?v=4">
 </head>
 <body>
 
 <header class="topbar">
   <nav aria-label="Main">
-    <a class="home" href="#top" aria-label="Wofchuck Honey Co., back to top"><img src="img/mark.svg" alt="" width="40" height="40"></a>
+    <a class="home" href="#top">Wofchuck Honey Co.</a>
     <ul>
       <li><a href="#honey">Honey</a></li>
       <li><a href="#stores">Stores</a></li>
@@ -231,16 +231,33 @@
       <div class="section-head">
         <p class="eyebrow">Contact</p>
         <h2 id="contact-title">Get in touch</h2>
-        <p>For bulk orders, gift jars, hives, pollination or anything else, send us an email.</p>
+        <p>For bulk orders, gift jars, hives, pollination or anything else, send us a note and we’ll write back.</p>
       </div>
-      <div class="email-row">
-        <span class="email-address" id="email">wofchuckhoneyco@gmail.com</span>
-        <div class="actions">
-          <a class="btn btn--solid" href="mailto:wofchuckhoneyco@gmail.com">Email us</a>
-          <button class="btn btn--line" type="button" id="copy-email">Copy address</button>
+      <form class="card contact-form" id="contact-form" novalidate>
+        <div class="field">
+          <label for="cf-name">Your name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required>
         </div>
-        <p class="copied" id="copied" aria-live="polite"></p>
-        <p>Chico, California</p>
+        <div class="field">
+          <label for="cf-email">Your email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" maxlength="254" required>
+        </div>
+        <div class="field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="5" maxlength="5000" required placeholder="What can we help with? For bulk or gift orders, tell us which honey and how much."></textarea>
+        </div>
+        <!-- Honeypot: hidden from people, filled in by bots. See TECH_DESIGN.md. -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="cf-website">Leave this empty</label>
+          <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="light" data-size="flexible" data-appearance="interaction-only"></div>
+        <p class="form-msg" id="cf-msg" role="alert" hidden></p>
+        <button type="submit" class="btn btn--solid btn--wide" id="cf-send">Send message</button>
+      </form>
+      <div class="card form-thanks" id="cf-thanks" tabindex="-1" hidden>
+        <h3>Message sent</h3>
+        <p>Thanks! We’ll be in touch soon.</p>
       </div>
     </div>
   </section>
@@ -252,22 +269,82 @@
   <small>© 2026 Wofchuck Honey Co. · Chico, California</small>
 </footer>
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
-  document.getElementById('copy-email').addEventListener('click', function () {
-    var address = document.getElementById('email').textContent;
-    var note = document.getElementById('copied');
-    function selectIt() {
-      var range = document.createRange();
-      range.selectNodeContents(document.getElementById('email'));
-      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
-      note.textContent = 'Address selected. Copy it from your menu.';
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(address).then(function () {
-        note.textContent = 'Copied. Paste it into your email.';
-      }, selectIt);
-    } else { selectIt(); }
+// Contact form -> Cloudflare Worker (worker/contact.mjs). TECH_DESIGN.md "Contact form".
+(function () {
+  var CONTACT_URL = 'https://wofchuck-contact.bparnell.workers.dev/';
+  // Anywhere else (the claude.ai demo link) can't reach the Worker or
+  // Turnstile, so Send explains that instead of failing.
+  var LIVE = /(^|\.)wofchuckhoneyco\.com$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var form = document.getElementById('contact-form');
+  var msg = document.getElementById('cf-msg');
+  var button = document.getElementById('cf-send');
+  var thanks = document.getElementById('cf-thanks');
+  var shownAt = Date.now();
+
+  function show(text, isError) {
+    msg.textContent = text;
+    msg.classList.toggle('form-msg--error', isError !== false);
+    msg.hidden = false;
+  }
+
+  function resetTurnstile() {
+    if (window.turnstile) window.turnstile.reset();
+  }
+
+  function finish() {
+    button.disabled = false;
+    button.textContent = 'Send message';
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    msg.hidden = true;
+
+    var data = {
+      name: form.elements.namedItem('name').value.trim(),
+      email: form.elements.namedItem('email').value.trim(),
+      message: form.elements.namedItem('message').value.trim(),
+      website: form.elements.namedItem('website').value,
+      elapsed: Date.now() - shownAt,
+      turnstile: (form.querySelector('[name="cf-turnstile-response"]') || {}).value || ''
+    };
+    if (!data.name) return show('Please tell us your name.');
+    if (!EMAIL_RE.test(data.email)) return show('Please check your email address.');
+    if (!data.message) return show('Please write a short message.');
+    if (!LIVE) return show('This is a preview. The form will work once the site is live.', false);
+    if (!data.turnstile) return show('Please wait a moment for the "I am human" check to finish, then try again.');
+
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    fetch(CONTACT_URL, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; });
+      })
+      .then(function (out) {
+        if (out.ok) {
+          form.hidden = true;
+          thanks.hidden = false;
+          thanks.focus();
+        } else {
+          show(out.error || 'Sorry, your message did not go through. Please try again in a few minutes.');
+          resetTurnstile();
+          finish();
+        }
+      })
+      .catch(function () {
+        show('Sorry, your message did not go through. Please check your connection and try again.');
+        resetTurnstile();
+        finish();
+      });
   });
+})();
 </script>
 </body>
 </html>

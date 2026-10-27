@@ -13,6 +13,7 @@
   --line: #c5d8d4;         /* card borders, dividers */
   --honey: #d39a2c;        /* the one warm accent */
   --on-ink: #f2f6f2;       /* text on --ink / --ink-deep */
+  --warn: #8a4a0c;         /* form errors: deep honey, 6.9:1 on --card */
 
   /* one jar colour per honey, darkest to lightest */
   --jar-wildflower: #a8661a;
@@ -116,12 +117,20 @@ body::before {
   justify-content: space-between;
   gap: 4px;
 }
-.topbar .home { display: flex; align-items: center; min-height: var(--tap); padding-inline: 8px; }
-.topbar .home img { width: 40px; height: 40px; }
+/* The name only fits beside the links from tablet width up. On a phone the
+   links spread across the bar, and the big logo is right below. */
+.topbar .home { display: none; }
+@media (min-width: 640px) {
+  .topbar .home {
+    display: flex; align-items: center; min-height: var(--tap); padding-inline: 8px;
+    font-family: var(--font-display); font-size: 1.2rem; color: var(--ink); text-decoration: none;
+  }
+}
 .topbar ul {
   list-style: none; margin: 0; padding: 0;
-  display: flex; flex: 1; justify-content: flex-end;
+  display: flex; flex: 1; justify-content: space-evenly;
 }
+@media (min-width: 640px) { .topbar ul { justify-content: flex-end; } }
 .topbar ul a {
   display: flex; align-items: center; justify-content: center;
   min-height: var(--tap);
@@ -261,20 +270,35 @@ body::before {
 .stores strong { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; }
 .stores a:hover strong { text-decoration-color: var(--ink); }
 
-/* ── contact ── */
+/* ── contact form: a .card, so it matches the honey and order cards ── */
 .contact { text-align: center; }
 .contact .section-head { align-items: center; margin-bottom: 24px; }
 .contact .section-head p { margin-inline: auto; }
-.email-row { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.email-row .actions { margin-top: 0; }
-.email-address {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 1rem + 1.4vw, 1.6rem);
-  color: var(--ink);
-  overflow-wrap: anywhere;
-  user-select: all;
+.contact-form, .form-thanks { text-align: left; gap: 20px; padding: 28px 24px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-weight: 700; font-size: 1.05rem; color: var(--ink); }
+.field input, .field textarea {
+  width: 100%;
+  min-height: var(--tap);
+  padding: 12px 14px;
+  font: 400 18px/1.4 var(--font-body);   /* ≥16px or iOS zooms in on focus */
+  color: var(--text);
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
 }
-.copied { color: var(--muted); min-height: 1.6em; }
+.field textarea { min-height: 150px; resize: vertical; }
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--ink); box-shadow: 0 0 0 3px var(--mist); }
+.field textarea::placeholder { color: var(--muted); opacity: 1; }
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.cf-turnstile:empty { display: none; }  /* interaction-only: no gap unless Cloudflare wants a click */
+.form-msg { font-weight: 600; color: var(--ink); }
+.form-msg--error { color: var(--warn); }
+.btn--wide { width: 100%; }
+.btn:disabled { opacity: .6; cursor: wait; }
+.form-thanks { text-align: center; }
+.form-thanks:focus { outline: none; }
+.form-thanks p { font-family: var(--font-display); font-size: 1.3rem; color: var(--ink); }
 
 /* ── footer ── */
 .footer {

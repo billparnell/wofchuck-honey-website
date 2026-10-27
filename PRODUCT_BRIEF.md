@@ -29,9 +29,22 @@ Show what honey they sell and where it comes from, then get people to email.
   liking for blue/teal: the label's line art traced and printed in teal, pale
   sea-glass paper, honey as the one warm colour, wavy seams between sections.
   Light only, on purpose. Details in `TECH_DESIGN.md`.
-- **2026-10-26: Demo contact = the email from the old Contact page**
-  (`wofchuckhoneyco@gmail.com`), shown as text with Email us and Copy buttons.
-  Not final; see open questions.
+- **2026-10-26: Contact is a form, not a published email address** (Bill's
+  call), so bots can't scrape an inbox. Same setup as wolfthump: a Cloudflare
+  Worker behind the form, Turnstile, honeypot, timer, rate limit.
+  - Fields: **name, email, message**. Kept minimal on purpose.
+  - After sending: "Thanks! We'll be in touch soon." **Don't name Mike**; someone
+    else may answer.
+  - The sender gets a short fixed confirmation email.
+  - **Messages go to Bill's Gmail until Mike says which address he wants.**
+  - Sender: `Wofchuck Honey Co. <wofchuck@parnellprojects.com>` (shared
+    verified domain, no DNS work), as with wolfthump.
+  - On the claude.ai demo link the form can't work (that host blocks Turnstile
+    and the Worker), so Send says "This is a preview. The form will work once
+    the site is live."
+- **2026-10-26: Top bar shows the name as text, not the bee.** The cropped bee
+  was unreadable at 40px. Phones show only the four links; the name appears
+  from 640px up.
 - **2026-10-26: Stores list = the old Store Locations page** (screenshot in
   `raw_input/store_locations.png`), 7 shops, each a Google Maps link. The old
   Home page said "Butte, Mendocino and Plumas counties", but the list reaches
@@ -42,9 +55,9 @@ Show what honey they sell and where it comes from, then get people to email.
   every pairing kept.
 
 ## Open questions for Mike (don't guess these)
-1. **Contact:** publish an email, or a form like wolfthump's (hides the inbox,
-   bot-protected)? Which address: `wofchuckhoneyco@gmail.com` (old Contact page)
-   or `honeyflight70@gmail.com` (on the jar label)?
+1. **Which inbox should form messages go to?** `wofchuckhoneyco@gmail.com` (old
+   Contact page), `honeyflight70@gmail.com` (jar label), or something else.
+   Bill's Gmail until then.
 2. **Which honeys are current?** The old Honey page lists five; the old Home
    page says "4 varieties".
 3. **Store list:** is the old list still right? **Briar Patch Co-op's address

@@ -1,0 +1,23 @@
+// Deploy config for the contact-form Worker. Deployed by hand from the Mac:
+//   npx wrangler deploy -c worker/wrangler.jsonc
+// The site itself is on GitHub Pages and is not part of this deploy.
+// Secrets are listed at the top of contact.mjs and set with `wrangler secret
+// put` — never here, because GitHub Pages publishes this whole repo.
+{
+  "name": "wofchuck-contact",
+  "main": "./contact.mjs",
+  "compatibility_date": "2026-10-26",
+
+  "vars": {
+    // Every origin the page is served from. The github.io address is a guess
+    // until the repo exists on GitHub; fix it then (BACKLOG phase F3).
+    "ALLOWED_ORIGINS": "https://billparnell.github.io,https://wofchuckhoneyco.com,https://www.wofchuckhoneyco.com"
+  },
+
+  // Per-IP: 3 submissions a minute. Turnstile is the real gate; this caps
+  // anyone who gets past it. namespace_id is any number unique to the account
+  // (wolfthump uses 4101).
+  "ratelimits": [
+    { "name": "LIMITER", "namespace_id": "4102", "simple": { "limit": 3, "period": 60 } }
+  ]
+}

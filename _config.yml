@@ -8,3 +8,4 @@ exclude:
   - TECH_DESIGN.md
   - raw_input/
   - tools/
+  - worker/
