@@ -10,7 +10,10 @@ Context: [`PRODUCT_BRIEF.md`](PRODUCT_BRIEF.md) and [`TECH_DESIGN.md`](TECH_DESI
 - [x] Trace the label into SVGs (`tools/make_logo.py`)
 - [x] One-page site: story, honey, stores, pairings, order, contact
 - [x] Checked at 375px and 1280px in headless Chrome
-- [x] Private demo link published for Bill to send to Mike
+- [x] Private demo link published for Bill to send to Mike:
+      https://claude.ai/artifact/BmkYrYZR5Gb3zmfWRS3dAp (share it from the page's
+      Share menu). To update it: copy `index.html` minus the doctype/html/head/body
+      tags plus `css/` and `img/` into a scratch folder and republish to that URL.
 
 ### Phase 2 — Mike's answers (blocked on Mike)
 - [ ] Go through the open questions in `PRODUCT_BRIEF.md` with Mike
