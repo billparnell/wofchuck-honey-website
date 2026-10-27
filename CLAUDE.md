@@ -2,6 +2,8 @@
 
 Static one-pager (`index.html`, `css/site.css`, `img/`), headed for **GitHub
 Pages** on wofchuckhoneyco.com, the same setup as `../wolfthump-website`.
+The contact form's backend is a Cloudflare Worker in `worker/` (copied from
+wolfthump's; keep fixes in step).
 
 - Docs: `PRODUCT_BRIEF.md` (decisions, open questions for Mike),
   `TECH_DESIGN.md` (logo pipeline, visual system), `BACKLOG.md` (next phase).
