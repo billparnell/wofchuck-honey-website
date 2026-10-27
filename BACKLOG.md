@@ -8,7 +8,7 @@ Context: [`PRODUCT_BRIEF.md`](PRODUCT_BRIEF.md) and [`TECH_DESIGN.md`](TECH_DESI
 ### Phase 1 — Demo for Mike — ✅ DONE 2026-10-26
 - [x] Pull content from the 8 archived Weebly pages in `raw_input/`
 - [x] Trace the label into SVGs (`tools/make_logo.py`)
-- [x] One-page site: story, honey, pairings, order, contact
+- [x] One-page site: story, honey, stores, pairings, order, contact
 - [x] Checked at 375px and 1280px in headless Chrome
 - [x] Private demo link published for Bill to send to Mike
 
@@ -30,4 +30,4 @@ Context: [`PRODUCT_BRIEF.md`](PRODUCT_BRIEF.md) and [`TECH_DESIGN.md`](TECH_DESI
 - [ ] Check on Bill's iPhone 13 mini
 
 ## Log
-- 2026-10-26: Phase 1 done. The old site's photos aren't on archive.org (404).
+- 2026-10-26: Phase 1 done. Store list added from `raw_input/store_locations.png`. The old site's photos aren't on archive.org (404).

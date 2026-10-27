@@ -202,6 +202,7 @@ body::before {
 .card-top { display: flex; align-items: center; gap: 14px; }
 .card-top h3 { flex: 1; min-width: 0; }
 .card p { color: var(--text); }
+.card .btn { align-self: flex-start; margin-top: auto; }
 
 /* honey drop in the jar colour of each variety */
 .drop { width: 34px; height: 44px; flex: none; }
@@ -241,6 +242,24 @@ body::before {
 .pairing li { padding-block: 12px; border-top: 1px solid var(--line); }
 .pairing li strong { display: block; color: var(--ink); font-weight: 700; }
 .pairing li span { color: var(--text); }
+
+/* ── stores: each whole entry is the map link, so the tap target is big ── */
+.stores {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 0 32px; grid-template-columns: 1fr;
+}
+@media (min-width: 700px) { .stores { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .stores { grid-template-columns: repeat(4, 1fr); } }  /* 7 stores: 4 + 3 */
+.stores li { border-top: 1px solid var(--line); min-width: 0; }
+.stores a {
+  display: flex; flex-direction: column;
+  min-height: var(--tap);
+  padding-block: 14px;
+  text-decoration: none;
+  color: var(--text);
+}
+.stores strong { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; }
+.stores a:hover strong { text-decoration-color: var(--ink); }
 
 /* ── contact ── */
 .contact { text-align: center; }

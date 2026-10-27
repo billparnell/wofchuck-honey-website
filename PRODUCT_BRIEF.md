@@ -21,7 +21,7 @@ Show what honey they sell and where it comes from, then get people to email.
   |---|---|
   | Home + About Us | **Our story** section |
   | Honey | **Our honey** section, five cards |
-  | Store Locations (was empty) | a "Where to find it" card in Our honey |
+  | Store Locations | **Where to buy** section (from `raw_input/store_locations.png`), linked from a card in Our honey |
   | Pairings | **Pairings** section, grouped by honey |
   | Bee Hives, Specialty bottles, bulk (from Home) | **Order** section, four cards |
   | Contact | **Contact** section |
@@ -32,6 +32,11 @@ Show what honey they sell and where it comes from, then get people to email.
 - **2026-10-26: Demo contact = the email from the old Contact page**
   (`wofchuckhoneyco@gmail.com`), shown as text with Email us and Copy buttons.
   Not final; see open questions.
+- **2026-10-26: Stores list = the old Store Locations page** (screenshot in
+  `raw_input/store_locations.png`), 7 shops, each a Google Maps link. The old
+  Home page said "Butte, Mendocino and Plumas counties", but the list reaches
+  Auburn and Placerville, so the copy now says "from Ukiah to Placerville".
+  Top nav is Honey · Stores · Order · Contact (Pairings sits right below Stores).
 - **2026-10-26: Copy is lightly edited from the old site**, not rewritten.
   Typos fixed ("it's" → "its"), Mike and Colleen's bio kept, all five honeys and
   every pairing kept.
@@ -42,7 +47,8 @@ Show what honey they sell and where it comes from, then get people to email.
    or `honeyflight70@gmail.com` (on the jar label)?
 2. **Which honeys are current?** The old Honey page lists five; the old Home
    page says "4 varieties".
-3. **Store list:** which shops carry the honey? The old page was empty.
+3. **Store list:** is the old list still right? **Briar Patch Co-op's address
+   is unreadable** in the screenshot; the page says "Address coming soon".
 4. **Photos and a high-res logo.** The old site's four photos were never
    archived. The logo is traced from a 436px scan of the label.
 5. **Social links** (the old site linked Facebook, but no URL survived).
