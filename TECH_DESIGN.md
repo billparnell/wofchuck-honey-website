@@ -56,12 +56,24 @@ empty/email/Turnstile checks before sending, POSTs
 `{name,email,message,website,elapsed,turnstile}` to `CONTACT_URL`, then swaps
 the form for the thank-you card. On an error it shows the Worker's message,
 keeps what they typed, and resets Turnstile (tokens are single-use).
-- `LIVE` is true only on wofchuckhoneyco.com, github.io and localhost. Anywhere
-  else (the claude.ai demo) Send shows a preview note instead of posting.
+- **`FORM_ON = false` until the Worker is deployed** (set it to `true` in F3).
+  While it's off, Send shows "This is a preview. The form will work once the
+  site is live." everywhere, so Mike looking at the github.io page sees a note,
+  not a "did not go through" error from a Worker that doesn't exist.
+- With it on, `LIVE` is true only on wofchuckhoneyco.com, github.io and
+  localhost. Anywhere else (the claude.ai demo) Send still shows the preview
+  note: that host's security policy blocks Turnstile and the Worker.
 - **Turnstile site key is the test key `1x00000000000000000000AA`** until the
   real widget exists (BACKLOG F3).
 - Email field has `autocapitalize="none"` and `inputmode="email"` (PLAYBOOK's
   iOS note).
+
+## Demo link on claude.ai (2026-10-26)
+https://claude.ai/artifact/BmkYrYZR5Gb3zmfWRS3dAp, private; shared from its
+Share menu. The artifact host wraps the page in its own `<html>/<head>/<body>`,
+so the published copy is `index.html` with those wrapper lines removed, plus
+`css/` and `img/`, republished to the same URL. Once GitHub Pages is up, that's
+the better link to send.
 
 ## Visual system
 Tokens on `:root` in `css/site.css`. Light only, by choice.
@@ -88,7 +100,8 @@ Tokens on `:root` in `css/site.css`. Light only, by choice.
 Serve with `python3 -m http.server 8765` and drive it with headless Chrome via
 `../groove-bank/tools/cdp.js` (`launch({width: 375})`; never `--window-size`,
 see PLAYBOOK). 2026-10-26: no sideways scroll at 375 or 1280, fonts load, no
-console errors. Serving with `--bind ::` and opening `http://[::1]:8765/`
-exercises the demo's preview path (that hostname isn't `LIVE`).
+console errors. With `FORM_ON = true`, serving with `--bind ::` and opening
+`http://[::1]:8765/` exercises the demo's preview path (that hostname isn't
+`LIVE`), and `127.0.0.1` exercises the live path.
 
 Tests: `node --test worker/contact.test.mjs` (15 tests, no dependencies).

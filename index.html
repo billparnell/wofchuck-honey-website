@@ -274,9 +274,11 @@
 // Contact form -> Cloudflare Worker (worker/contact.mjs). TECH_DESIGN.md "Contact form".
 (function () {
   var CONTACT_URL = 'https://wofchuck-contact.bparnell.workers.dev/';
-  // Anywhere else (the claude.ai demo link) can't reach the Worker or
-  // Turnstile, so Send explains that instead of failing.
-  var LIVE = /(^|\.)wofchuckhoneyco\.com$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
+  // FORM_ON stays false until the Worker is deployed with its secrets
+  // (BACKLOG F3); until then Send shows a preview note instead of failing.
+  // The claude.ai demo link can't reach the Worker or Turnstile at all.
+  var FORM_ON = false;
+  var LIVE = FORM_ON && /(^|\.)wofchuckhoneyco\.com$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   var form = document.getElementById('contact-form');
   var msg = document.getElementById('cf-msg');
