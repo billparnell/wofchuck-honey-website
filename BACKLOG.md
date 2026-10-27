@@ -19,15 +19,14 @@ Context: [`PRODUCT_BRIEF.md`](PRODUCT_BRIEF.md) and [`TECH_DESIGN.md`](TECH_DESI
 
 ### P — Put the demo on GitHub Pages (Bill, by hand)
 - [ ] `/code-review` on `main` before the first push
-- [ ] github.com → New repository → name `wofchuck-honey-website`, **Public**,
-      no README (the repo already has one). Then in Terminal, in this folder:
-      `git remote add origin https://github.com/billparnell/wofchuck-honey-website.git`
-      and `git push -u origin main`
+- [ ] The repo already exists: `origin` = github.com/billparnell/wofchuck-honey-webiste
+      (spelled like the folder). It must be **Public** for free Pages
+      (Settings → General → bottom, "Change visibility"). Push `main`.
 - [ ] Repo → Settings → Pages → Source "Deploy from a branch", Branch `main`,
       folder `/ (root)` → Save. Wait 1–2 minutes.
-- [ ] Open `https://billparnell.github.io/wofchuck-honey-website/`. Check
+- [ ] Open `https://billparnell.github.io/wofchuck-honey-webiste/`. Check
       `…/BACKLOG.html` is a 404 (the `_config.yml` excludes worked).
-- [ ] Send Mike that link. Write the real URL into `TECH_DESIGN.md`.
+- [ ] Send Mike that link. Note it in `TECH_DESIGN.md` once it works.
 
 ### Phase 1 — Demo for Mike — ✅ DONE 2026-10-26
 - [x] Pull content from the 8 archived Weebly pages in `raw_input/`
