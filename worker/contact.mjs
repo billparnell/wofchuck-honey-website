@@ -3,7 +3,7 @@
 // The site is static on GitHub Pages, so the form POSTs JSON here. This file
 // checks that a human sent it, then emails the contact inbox (MAIL_TO) with
 // Reply-To set to the sender, and sends the sender a short fixed confirmation.
-// TECH_DESIGN.md "Contact form" has the why behind every check.
+// private/TECH_DESIGN.md "Contact form" has the why behind every check.
 // Copied from ../wolfthump-website/worker/ on 2026-10-26; keep fixes in step.
 //
 // Secrets (set with `npx wrangler secret put`, never committed — this repo is

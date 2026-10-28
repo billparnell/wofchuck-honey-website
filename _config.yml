@@ -2,10 +2,6 @@
 # Anything new at the repo root that isn't part of the site goes here too.
 exclude:
   - README.md
-  - BACKLOG.md
   - CLAUDE.md
-  - PRODUCT_BRIEF.md
-  - TECH_DESIGN.md
-  - raw_input/
   - tools/
   - worker/

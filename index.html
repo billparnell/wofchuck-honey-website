@@ -246,7 +246,7 @@
           <label for="cf-message">Message</label>
           <textarea id="cf-message" name="message" rows="5" maxlength="5000" required placeholder="What can we help with? For bulk or gift orders, tell us which honey and how much."></textarea>
         </div>
-        <!-- Honeypot: hidden from people, filled in by bots. See TECH_DESIGN.md. -->
+        <!-- Honeypot: hidden from people, filled in by bots. See private/TECH_DESIGN.md. -->
         <div class="hp-field" aria-hidden="true">
           <label for="cf-website">Leave this empty</label>
           <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off">
@@ -271,11 +271,11 @@
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
-// Contact form -> Cloudflare Worker (worker/contact.mjs). TECH_DESIGN.md "Contact form".
+// Contact form -> Cloudflare Worker (worker/contact.mjs). private/TECH_DESIGN.md "Contact form".
 (function () {
   var CONTACT_URL = 'https://wofchuck-contact.bparnell.workers.dev/';
   // FORM_ON stays false until the Worker is deployed with its secrets
-  // (BACKLOG F3); until then Send shows a preview note instead of failing.
+  // (private/BACKLOG.md F3); until then Send shows a preview note instead of failing.
   // The claude.ai demo link can't reach the Worker or Turnstile at all.
   var FORM_ON = false;
   var LIVE = FORM_ON && /(^|\.)wofchuckhoneyco\.com$|\.github\.io$|^localhost$|^127\.0\.0\.1$/.test(location.hostname);

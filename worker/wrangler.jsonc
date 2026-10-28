@@ -10,7 +10,7 @@
 
   "vars": {
     // Every origin the page is served from. The github.io address is a guess
-    // until the repo exists on GitHub; fix it then (BACKLOG phase F3).
+    // until the repo exists on GitHub; fix it then (private/BACKLOG.md phase F3).
     "ALLOWED_ORIGINS": "https://billparnell.github.io,https://wofchuckhoneyco.com,https://www.wofchuckhoneyco.com"
   },
 

@@ -1,4 +1,4 @@
-"""Trace raw_input/logo.jpg (a 436px scan of the jar label) into crisp SVGs.
+"""Trace private/raw_input/logo.jpg (a 436px scan of the jar label) into crisp SVGs.
 
 The label is black ink on white, too small to show sharply on a phone, so we
 upscale, threshold and vectorise it with potracer. Run from the repo root:
@@ -15,7 +15,7 @@ import potrace
 SCALE = 4
 INK = "#1b5a61"   # keep in step with --ink in css/site.css
 GROUND = "#f2f6f2"  # --paper
-SRC = Image.open("raw_input/logo.jpg").convert("L")
+SRC = Image.open("private/raw_input/logo.jpg").convert("L")
 
 
 def trace(box, erase=(), out="img/out.svg", label="", favicon=None):
