@@ -17,10 +17,7 @@
 
   /* one jar colour per honey, darkest to lightest */
   --jar-wildflower: #a8661a;
-  --jar-knapweed: #cf951f;
-  --jar-desert: #dcaa45;
   --jar-sage: #e9cf86;
-  --jar-clover: #f0dc9c;
 
   --font-display: 'Young Serif', Georgia, 'Times New Roman', serif;
   --font-body: 'Figtree', 'Helvetica Neue', Arial, sans-serif;
@@ -217,10 +214,7 @@ body::before {
 .drop { width: 34px; height: 44px; flex: none; }
 .drop path { stroke: var(--ink); stroke-width: 1.6; }
 .drop--wildflower path { fill: var(--jar-wildflower); }
-.drop--knapweed path { fill: var(--jar-knapweed); }
-.drop--desert path { fill: var(--jar-desert); }
 .drop--sage path { fill: var(--jar-sage); }
-.drop--clover path { fill: var(--jar-clover); }
 
 /* the one pill: where a honey comes from */
 .pill {
