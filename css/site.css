@@ -235,11 +235,9 @@ body::before {
 }
 .pill--ours { background: var(--honey); color: var(--ink-deep); }
 
-/* line icons on the order cards */
+/* line icons on cards */
 .icon { width: 40px; height: 40px; flex: none; color: var(--ink); }
 .icon * { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-
-.note { color: var(--muted); margin-top: 28px; text-align: center; }
 
 /* ── stores: each whole entry is the map link, so the tap target is big ── */
 .stores {
